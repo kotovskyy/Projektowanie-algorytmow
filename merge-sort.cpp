@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <vector>
 #define print(x) std::cout << x << std::endl;
 
@@ -45,7 +44,6 @@ void mergeSort(std::vector<int>& arr, int left, int right){
     mergeSort(arr, middle+1, right);
     merge(arr, left, middle, right);
 }
-
 
 
 int main() {
