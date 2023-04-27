@@ -32,7 +32,6 @@ void bucketSort(std::vector<std::vector<std::string> >& arr, int lowest, int gre
         buckets[std::stoi(arr[i][col])-lowest].push_back(arr[i]);
     }
     arr.clear();
-    std::cout << arr.size() << std::endl;
     for (int i = 0; i < buckets.size(); i++) {
         for (int j = 0; j < buckets[i].size(); j++) {
             arr.push_back(buckets[i][j]);
