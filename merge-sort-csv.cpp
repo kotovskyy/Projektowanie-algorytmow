@@ -46,7 +46,6 @@ void read_csv(std::string filename, std::vector<std::vector<std::string> >& dest
         if (std::getline(file, line)) {
             std::stringstream ss(line);
             std::string part;
-            bool isstr = false;
             while (std::getline(ss, part, ',')) {
                 if (part[0] == '\"') {
                     continue;
