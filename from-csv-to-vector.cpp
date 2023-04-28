@@ -9,21 +9,25 @@ void read_csv(std::string filename, std::vector<std::vector<std::string> >& dest
     std::fstream file(filename);
     // read from *.cvs file
     std::string line;
-    for (int i = start_row; i < end_row+2; i++) {
-        std::vector<std::string> row;
+    int i = 0;
+    while (!file.eof()) {
         if (std::getline(file, line)) {
-            // std::stringstream ss(line);
-            std::string part;
-            int first = line.find_first_of(',');
-            int last = line.find_last_of(',');
-            part = line.substr(0, first);
-            row.push_back(part);
-            part = line.substr(first+1, last-first-1);
-            row.push_back(part);
-            part = line.substr(last+1, line.size());
-            row.push_back(part);
-            dest.push_back(row);
+            std::vector<std::string> row;
+            if ((i >= start_row) && (i < end_row+2)) {
+                std::string part;
+                int first = line.find_first_of(',');
+                int last = line.find_last_of(',');
+                part = line.substr(0, first);
+                row.push_back(part);
+                part = line.substr(first+1, last-first-1);
+                row.push_back(part);
+                part = line.substr(last+1, line.size());
+                row.push_back(part);
+                dest.push_back(row);
+            }
         }
+        if (i >= end_row + 2) return;
+        i++;
     }
     file.close();
 }
