@@ -9,17 +9,19 @@ void read_csv(std::string filename, std::vector<std::vector<std::string> >& dest
     std::fstream file(filename);
     // read from *.cvs file
     std::string line;
-    for (int i = start_row; i < end_row+1; i++) {
+    for (int i = start_row; i < end_row+2; i++) {
         std::vector<std::string> row;
         if (std::getline(file, line)) {
-            std::stringstream ss(line);
+            // std::stringstream ss(line);
             std::string part;
-            while (std::getline(ss, part, ',')) {
-                if (part[0] == '\"') {
-                    continue;
-                }
-                row.push_back(part);
-            }
+            int first = line.find_first_of(',');
+            int last = line.find_last_of(',');
+            part = line.substr(0, first);
+            row.push_back(part);
+            part = line.substr(first+1, last-first-1);
+            row.push_back(part);
+            part = line.substr(last+1, line.size());
+            row.push_back(part);
             dest.push_back(row);
         }
     }
@@ -30,7 +32,7 @@ int main() {
     std::string filename = "data.csv";
     std::vector<std::vector<std::string> > data;
     
-    read_csv(filename, data, 0, 19);
+    read_csv(filename, data, 1, 24);
 
     for (int i = 1; i < data.size(); i++) {
         for (int j = 0; j < data[0].size(); j++) {
@@ -38,6 +40,6 @@ int main() {
         }
         std::cout << std::endl;
     }
-
+    
     return EXIT_SUCCESS;
 }
